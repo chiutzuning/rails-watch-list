@@ -12,3 +12,9 @@ import "bootstrap";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// fetch("http://tmdb.lewagon.com/movie/top_rated?api_key=<your_api_key>")
+//   .then(response => response.json())
+//   .then((data) => {
+//     console.log(data)
+//   })

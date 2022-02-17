@@ -1,0 +1,28 @@
+<div class="card-category m-2" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1594908900066-3f47337549d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80)">
+    Our Movies
+</div>
+<div class="cards">
+  <% @movies.each do |movie| %>
+  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= movie.poster_url %>)">
+    <%= movie.title %>
+  </div>
+  <% end %>
+</div>
+
+<% @movies.each do |movie| %>
+<div class="card-img-top" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= movie.poster_url %>)">
+</div>
+<div class="card-body">
+  <h5 class="card-title"><%= movie.title %></h5>
+  <p class="card-text"><%= movie.overview %></p>
+  </div>
+  <%# <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div> %>
+<% end %>
