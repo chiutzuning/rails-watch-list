@@ -1,24 +1,25 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_list, only: [:show, :destroy]
   def index
     @lists = List.all
   end
 
-  def new
-    @list = List.new
+  def show
+    @list = List.find(params[:id])
+    @movie = Movie.new
   end
 
   def create
     @list = List.new(list_params)
     @list.save
 
-    redirect_to list_path(@list)
+    redirect_to lists_path
   end
 
   def update
     # @list = list.find(params[:id])
     @restaurant.update(list_params)
-    redirect_to list_path(@list)
+    redirect_to lists_path
   end
 
   def destroy
@@ -32,7 +33,7 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:title, :overview, :poster_url, :rating)
+    params.require(:list).permit(:name)
   end
 
   def set_list
