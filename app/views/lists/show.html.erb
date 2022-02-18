@@ -5,13 +5,17 @@
 <div class="container mb-5">
   <div class="d-flex justify-content-between my-4">
     <span class="mb-2 d-block"><small><em class="text-muted"><%= "You haven't saved any movies yet!" if @list.movies.empty? %></em></small></span>
-    <%= link_to "delete this list", list_path(@list), method: :delete, class: "btn btn-cancel", data: { confirm: "Are you sure you want to delete this list?" } %>
+    <%= link_to "delete this list", list_path(@list), method: :delete, class: "btn btn-dark m-3", data: { confirm: "Are you sure you want to delete this list?" } %>
   </div>
-  <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.input :comment %>
-    <%= f.association :movie%>
-    <%= f.submit class:"btn btn-flat" %>
-  <% end %>
+  <div class="bg-white rounded shadow h-400">
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+      <div class="p-3 rounded-bottom d-flex flex-column">
+        <%= f.input :comment %>
+        <%= f.association :movie%>
+        <%= f.submit class:"btn btn-dark m-3" %>
+      </div>
+    <% end %>
+  </div>
   <div class="row my-2">
     <% @list.movies.each do |movie| %>
       <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
@@ -32,8 +36,33 @@
       </div>
     <% end %>
   </div>
+  <div class="row my-2">
+   <div class="col-12 col-sm-6">
+        <div class="card">
+          <div class="card-header bg-dark text-white">
+            Reviews
+          </div>
+          <% @list.reviews.each do |review| %>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                  <p><%= review.content %></p>
+                  <footer class="blockquote-footer"><%= review.rating %> stars</footer>
+                </blockquote>
+            </div>
+          <% end %>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6">
+       <div class="bg-white rounded p-3 bg-light">
+         <%= simple_form_for [@list, @review] do |f|%>
+           <%= f.input :content, placeholder: "Add your review here..." %>
+           <%= f.input :rating, as: :select, collection: (1..5), required: true, prompt: "What's your rating", input_html: { data: { controller: "jquery-bar-rating" } } %>
+           <%= f.submit class:"btn btn-dark m-3" %>
+         <% end %>
+       </div>
+    </div>
  </div>
 
  <div class="container mb-5">
-  <%= link_to "back to lists", lists_path, class: "btn btn-cancel text-center" %>
+  <%= link_to "back to lists", lists_path, class: "btn btn-dark m-3 text-center" %>
  </div>
